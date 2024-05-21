@@ -37,6 +37,7 @@ export default async (req, res) => {
     number_format,
     border_color,
     rank_icon,
+    role,
     show,
   } = req.query;
   res.setHeader("Content-Type", "image/svg+xml");
@@ -69,8 +70,10 @@ export default async (req, res) => {
     const showStats = parseArray(show);
     const stats = await fetchStats(
       username,
+      parseBoolean(count_private),
       parseBoolean(include_all_commits),
       parseArray(exclude_repo),
+      parseArray(role),
       showStats.includes("prs_merged") ||
         showStats.includes("prs_merged_percentage"),
       showStats.includes("discussions_started"),
